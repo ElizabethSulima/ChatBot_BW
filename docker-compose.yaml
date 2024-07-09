@@ -5,6 +5,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
   chatbot:
     build: ./
     env_file:
@@ -12,3 +14,5 @@ services:
     depends_on:
       - mongo
     entrypoint: ["sh", "run.sh"]
+volumes:
+  mongo_data:
