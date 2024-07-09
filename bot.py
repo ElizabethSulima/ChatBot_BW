@@ -75,7 +75,7 @@ async def insert_user(user_data):
 async def check_and_reset_bonus(user_id, message):
     user = await db[settings.DB_COLLECTION].find_one({"user_id": user_id})
     last_bonus_date = datetime.strptime(user["time_bonuses"], "%d:%m:%Y")
-    current_date = datetime(2024, 12, 15)
+    current_date = datetime.now()
     delta = timedelta(days=60)
 
     if current_date - last_bonus_date >= delta:
