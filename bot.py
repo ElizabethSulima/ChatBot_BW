@@ -97,7 +97,7 @@ async def check_and_reset_bonus(user_id, message):
 async def command_start(message: Message) -> None:
     user = await find_user(user_id=message.from_user.id)
 
-    if user is not None and user["role"] == "admin":
+    if user is not None and user["role"] in ["super_admin", "admin"]:
         await message.answer(
             "Введите номер телефона клиента в формате\n 'Клиент: номер_телефона'"
         )
@@ -150,7 +150,7 @@ async def find_phone_user(message: Message, state: FSMContext) -> None:
     admin = await db[settings.DB_COLLECTION].find_one(
         {"user_id": message.from_user.id}
     )
-    if admin["role"] != "admin":
+    if admin["role"] not in ["super_admin", "admin"]:
         await message.answer("Вы не являетесь админестратором!")
         return
     client = await db[settings.DB_COLLECTION].find_one(
