@@ -122,7 +122,7 @@ async def command_start(message: Message) -> None:
     )
 
     if user.get("phone") is None:
-        await message.answer("Введите номер телефона:")
+        await message.answer("Введите номер телефона в формате 8ХХХХХХХХХХ:")
 
 
 @form_router.message(F.text.regexp(r"\d{11}"))
