@@ -156,6 +156,14 @@ async def find_phone_user(message: Message, state: FSMContext) -> None:
     client = await db[settings.DB_COLLECTION].find_one(
         {"phone": message.text.split(" ")[-1]}
     )
+    if client is None:
+        await message.answer(
+            "Такого номера телефона нет в базе либо вы ввели некорректно"
+        )
+        await message.answer(
+            "Введите номер телефона клиента в формате\n 'Клиент: номер_телефона'"
+        )
+        return
     client.pop("_id")
     await state.update_data(**client)
 

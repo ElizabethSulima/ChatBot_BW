@@ -9,6 +9,7 @@ services:
       - mongo_data:/data/db
   chatbot:
     build: ./
+    restart: always
     env_file:
       - .env
     depends_on:
